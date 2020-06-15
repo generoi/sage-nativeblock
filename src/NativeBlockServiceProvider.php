@@ -4,7 +4,6 @@ namespace Genero\Sage\NativeBlock;
 
 use ReflectionClass;
 use Illuminate\Support\Str;
-use App\Blocks\NativeBlock\NativeBlock;
 use Roots\Acorn\ServiceProvider;
 use Symfony\Component\Finder\Finder;
 
