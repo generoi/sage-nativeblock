@@ -67,7 +67,7 @@ class NativeBlock
         $this->classes = collect([
             'slug' => Str::start(Str::slug(Str::replaceFirst('/', '-', $this->name), '-'), 'wp-block-'),
             'align' => !empty($this->attributes->align) ? Str::start($this->attributes->align, 'align') : false,
-            'color' => !empty($this->attributes->textColor) ? "has-{$this->attributes->textColor}-color" : false,
+            'color' => !empty($this->attributes->textColor) ? "has-{$this->attributes->textColor}-color has-text-color" : false,
             'background' => !empty($this->attributes->backgroundColor) ? "has-{$this->attributes->backgroundColor}-background-color has-background" : false,
             'classes' => $this->attributes->className ?? false,
         ])->filter()->implode(' ');
