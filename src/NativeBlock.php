@@ -48,7 +48,9 @@ class NativeBlock
 
         $json = json_decode(file_get_contents($path));
 
-        $this->attributeDefinitions = $json->attributes;
+        if ($json->attributes) {
+            $this->attributeDefinitions = $json->attributes;
+        }
     }
 
     public function build()
