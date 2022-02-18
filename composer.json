@@ -13,10 +13,7 @@
   "autoload": {
     "psr-4": {
       "Genero\\Sage\\NativeBlock\\": "src/"
-    },
-    "files": [
-      "src/polyfill.php"
-    ]
+    }
   },
   "require": {
     "roots/acorn": "*"

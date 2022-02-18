@@ -36,12 +36,12 @@ class NativeBlock
 
     protected function register(): void
     {
-        \register_block_type($this->name, $this->build());
+        register_block_type($this->name, $this->build());
     }
 
     protected function registerFromMetadata($path): void
     {
-        \register_block_type_from_metadata(
+        register_block_type_from_metadata(
             dirname($path),
             $this->build()
         );
