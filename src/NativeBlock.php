@@ -24,7 +24,7 @@ class NativeBlock
     {
         add_action('init', function () {
             $slug = Str::after($this->name, '/');
-            $path = $this->app->resourcePath("assets/scripts/editor/blocks/$slug/block.json");
+            $path = get_template_directory() . "/resources/assets/scripts/editor/blocks/$slug/block.json";
 
             if (file_exists($path)) {
                 $this->registerFromMetadata($path);
@@ -105,12 +105,11 @@ class NativeBlock
 
     public function view($view, $with = [])
     {
-        $view = $this->app->resourcePath(
-            Str::finish(
-                str_replace('.', '/', basename($view, '.blade.php')),
-                '.blade.php'
-            )
-        );
+        $view = get_template_directory() . "/resources/" .
+                Str::finish(
+                    str_replace( '.', '/', basename( $view, '.blade.php' ) ),
+                    '.blade.php'
+                );
 
         if (!file_exists($view)) {
             return;
