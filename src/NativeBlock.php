@@ -56,13 +56,13 @@ class NativeBlock
     public function build()
     {
         return [
-            'render_callback' => function ($attributes, $content) {
-                return $this->render($attributes, $content);
+            'render_callback' => function ($attributes, $content, $block) {
+                return $this->render($attributes, $content, $block);
             }
         ];
     }
 
-    public function render($attributes, $content)
+    public function render($attributes, $content, $block)
     {
         $this->attributes = (object) array_merge($this->metaAttributes(), $attributes);
         $this->content = $content;
@@ -80,6 +80,7 @@ class NativeBlock
             [
                 'block' => $this,
                 'content' => $this->content,
+                'context' => $block->context,
             ]
         );
     }
