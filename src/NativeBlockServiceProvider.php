@@ -17,6 +17,9 @@ class NativeBlockServiceProvider extends ServiceProvider
     public function register()
     {
         $path = $this->app->path('Blocks');
+        if (!file_exists($path)) {
+            return;
+        }
 
         foreach ((new Finder())->in($path)->files() as $composer) {
             $composer = $this->app->getNamespace() . str_replace(
