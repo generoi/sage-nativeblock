@@ -29,10 +29,7 @@ class NativeBlock
     {
         $blockType = $this->name;
 
-        $slug = Str::after($this->name, '/');
-        $path = get_template_directory() . "/resources/assets/scripts/editor/blocks/$slug/block.json";
-
-        if (file_exists($path)) {
+        if ($jsonPath = $this->blockJsonPath()) {
             $blockType = $jsonPath;
             $json = json_decode(file_get_contents($jsonPath));
 
@@ -51,6 +48,19 @@ class NativeBlock
                 return $this->render($attributes, $content, $block);
             }
         ];
+    }
+
+    public function blockJsonPath(): string
+    {
+        $slug = Str::after($this->name, '/');
+        $prefixedSlug = str_replace('/', '-', $this->name);
+
+        return locate_template([
+            "resources/scripts/editor/blocks/$prefixedSlug/block.json",
+            "resources/scripts/editor/blocks/$slug/block.json",
+            "resources/assets/scripts/editor/blocks/$prefixedSlug/block.json",
+            "resources/assets/scripts/editor/blocks/$slug/block.json",
+        ], false, false);
     }
 
     public function render($attributes, $content, $block)
