@@ -22,35 +22,26 @@ class NativeBlock
 
     public function compose()
     {
-        add_action('init', function () {
-            $slug = Str::after($this->name, '/');
-            $path = get_template_directory() . "/resources/assets/scripts/editor/blocks/$slug/block.json";
+        add_action('init', [$this, 'register']);
+    }
 
-            if (file_exists($path)) {
-                $this->registerFromMetadata($path);
-            } else {
-                $this->register();
+    public function register(): void
+    {
+        $blockType = $this->name;
+
+        $slug = Str::after($this->name, '/');
+        $path = get_template_directory() . "/resources/assets/scripts/editor/blocks/$slug/block.json";
+
+        if (file_exists($path)) {
+            $blockType = $jsonPath;
+            $json = json_decode(file_get_contents($jsonPath));
+
+            if ($json->attributes ?? false) {
+                $this->attributeDefinitions = $json->attributes;
             }
-        });
-    }
-
-    protected function register(): void
-    {
-        register_block_type($this->name, $this->build());
-    }
-
-    protected function registerFromMetadata($path): void
-    {
-        register_block_type_from_metadata(
-            dirname($path),
-            $this->build()
-        );
-
-        $json = json_decode(file_get_contents($path));
-
-        if ($json->attributes ?? false) {
-            $this->attributeDefinitions = $json->attributes;
         }
+
+        register_block_type($blockType, $this->build());
     }
 
     public function build()
