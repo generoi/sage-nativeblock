@@ -13,6 +13,7 @@ class NativeBlock
     public $name;
     public $attributes;
     public $classes;
+    public $className;
     public $content;
 
     public function __construct(Application $app)
