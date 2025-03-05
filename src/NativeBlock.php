@@ -4,6 +4,7 @@ namespace Genero\Sage\NativeBlock;
 
 use Illuminate\Support\Str;
 use Roots\Acorn\Application;
+use WP_Block;
 
 class NativeBlock
 {
@@ -15,6 +16,7 @@ class NativeBlock
     public $classes;
     public $className;
     public $content;
+    public WP_Block $block;
 
     public function __construct(Application $app)
     {
@@ -69,6 +71,7 @@ class NativeBlock
         $this->attributes = (object) array_merge($this->metaAttributes(), $attributes);
         $this->content = $content;
         $this->className = Str::start(Str::slug(Str::replaceFirst('/', '-', $this->name), '-'), 'wp-block-');
+        $this->block = $block;
         $this->classes = collect([
             'slug' => $this->className,
             'align' => !empty($this->attributes->align) ? Str::start($this->attributes->align, 'align') : false,
